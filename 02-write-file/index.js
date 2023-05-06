@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
+
 const { stdin, stdout, exit } = process;
 const output = fs.createWriteStream(path.resolve(__dirname, 'text.txt'));
 
