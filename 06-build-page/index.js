@@ -70,14 +70,29 @@ async function copyAssets(input, output) {
 }
 
 async function mountPage() {
-  await rm(outputFolderPath, { recursive: true, force: true });
+  try {
+    await rm(outputFolderPath, { recursive: true, force: true });
 
-  useTemplate(templatePath, outputFolderPath, componentsPath);
-  mountCss(stylesPath, outputCssPath);
-  copyAssets(assetsPath, outputAssetsPath);
+    useTemplate(templatePath, outputFolderPath, componentsPath);
+    mountCss(stylesPath, outputCssPath);
+    copyAssets(assetsPath, outputAssetsPath);
 
-  stdout.write(
-    chalk.bold('\nThe page components have been successfully mounted and placed in the "project-dist" folder!\n')
-  );
+    stdout.write(
+      chalk.bold('\nThe page components have been successfully mounted and placed in the "project-dist" folder!\n')
+    );
+  } catch (error) {
+    stdout.write(
+      chalk.bold(
+        `
+         If you get an error: "ENOTEMPTY: directory not empty...",
+         when you run the script '06-build-page' twice,
+         run the script again or stop the live server.
+         This has been discussed on discord:
+         https://discord.com/channels/516715744646660106/902597020915736617/906958402150883350\n
+        `,
+        error.message + '\n'
+      )
+    );
+  }
 }
 mountPage();
