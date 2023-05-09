@@ -78,6 +78,7 @@ async function mountPage() {
 
     stdout.write('\nThe page components have been successfully mounted and placed in the "project-dist" folder!\n');
   } catch (error) {
+    stdout.write(`\n${error.message}\n`);
     stdout.write(
       `
          If you get an error: "ENOTEMPTY: directory not empty...",
@@ -85,8 +86,7 @@ async function mountPage() {
          run the script again or stop the live server.
          This has been discussed on discord:
          https://discord.com/channels/516715744646660106/902597020915736617/906958402150883350\n
-        `,
-      error.message + '\n'
+        `
     );
   }
 }
