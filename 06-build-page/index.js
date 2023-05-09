@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const { readFile, writeFile, readdir, mkdir, copyFile, rm } = require('fs/promises');
-const chalk = require('chalk');
 
 const { stdout } = process;
 
@@ -24,7 +23,7 @@ async function useTemplate(input, output, parts) {
 
     await writeFile(path.resolve(output, 'index.html'), template, 'utf8');
   } catch (error) {
-    stdout.write(chalk.bold('\nError:', error.message));
+    stdout.write('\nError:', error.message);
   }
 }
 
@@ -46,7 +45,7 @@ async function mountCss(input, output) {
     }
     await writeFile(path.resolve(output), bundle.join('\n'));
   } catch (error) {
-    stdout.write(chalk.bold('\nError:', error.message));
+    stdout.write('\nError:', error.message);
   }
 }
 
@@ -65,7 +64,7 @@ async function copyAssets(input, output) {
       }
     }
   } catch (error) {
-    stdout.write(chalk.bold('\nError:', error.message));
+    stdout.write('\nError:', error.message);
   }
 }
 
@@ -77,21 +76,17 @@ async function mountPage() {
     mountCss(stylesPath, outputCssPath);
     copyAssets(assetsPath, outputAssetsPath);
 
-    stdout.write(
-      chalk.bold('\nThe page components have been successfully mounted and placed in the "project-dist" folder!\n')
-    );
+    stdout.write('\nThe page components have been successfully mounted and placed in the "project-dist" folder!\n');
   } catch (error) {
     stdout.write(
-      chalk.bold(
-        `
+      `
          If you get an error: "ENOTEMPTY: directory not empty...",
          when you run the script '06-build-page' twice,
          run the script again or stop the live server.
          This has been discussed on discord:
          https://discord.com/channels/516715744646660106/902597020915736617/906958402150883350\n
         `,
-        error.message + '\n'
-      )
+      error.message + '\n'
     );
   }
 }

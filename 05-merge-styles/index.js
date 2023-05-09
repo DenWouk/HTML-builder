@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const { readdir, writeFile } = require('fs/promises');
-const chalk = require('chalk');
 
 const { stdout } = process;
 
@@ -26,9 +25,9 @@ async function mergeStyles(input, output) {
     }
     await writeFile(path.resolve(output, 'bundle.css'), bundle.join('\n'));
 
-    stdout.write(chalk.bold('\nFile "bundle.css" successfully created!\n'));
+    stdout.write('\nFile "bundle.css" successfully created!\n');
   } catch (error) {
-    stdout.write(chalk.bold('\nError:', error.message));
+    stdout.write('\nError:', error.message);
   }
 }
 mergeStyles(inputPath, outputPath);

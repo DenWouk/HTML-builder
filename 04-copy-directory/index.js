@@ -1,6 +1,5 @@
 const path = require('path');
 const { mkdir, readdir, unlink, copyFile } = require('fs/promises');
-const chalk = require('chalk');
 
 const { stdout } = process;
 
@@ -17,9 +16,9 @@ async function copyFolder(input, output) {
     outputData.forEach((file) => unlink(path.resolve(output, file)));
     inputData.forEach((file) => copyFile(path.resolve(input, file), path.resolve(output, file)));
 
-    stdout.write(chalk.bold('\nFiles successfully copied to "files-copy" folder!\n'));
+    stdout.write('\nFiles successfully copied to "files-copy" folder!\n');
   } catch (error) {
-    stdout.write(chalk.bold('\nError:', error.message));
+    stdout.write('\nError:', error.message);
   }
 }
 copyFolder(folderPath, folderCopyPath);
